@@ -115,10 +115,12 @@
         }
 
         // execute
-        public function Execute() : bool {
+        public function Execute(bool $NoBindParam = false) : bool {
             try {
                 $stmt = $this->conn->prepare($this->query);
-                $this->BindParam($stmt);
+                if($NoBindParam == false){
+                    $this->BindParam($stmt);
+                }
                 $stmt->execute(); 
                 $this->Reset();
                 return true;
@@ -181,6 +183,180 @@
                     }
                     $count2++;
                 }
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // Create Table
+        public function CreateTable(string $table) : self {
+            try {
+                $this->query .= 'CREATE TABLE IF NOT EXISTS '.$table.' (';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // SetColumnName
+        public function ColumnName(string $column) : self {
+            try {
+                $this->query .= $column.' ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        
+        // set data type
+        public function DataType(string $data_type, bool $lenght_value = true) : self {
+            try {
+                if($lenght_value == true){
+                    $this->query .= strtoupper($data_type).'(';
+                }else{
+                    $this->query .= strtoupper($data_type).' ';
+                }
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // set lenght
+        public function Length(float $length) : self {
+            try {
+                $this->query .= $length.') ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        
+        // set as auto increment
+        public function AutoIncrement() : self {
+            try {
+                $this->query .= 'AUTO_INCREMENT ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // set as primary key
+        public function PrimaryKey() : self {
+            try {
+                $this->query .= 'PRIMARY KEY ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // set not null
+        public function NotNull() : self {
+            try {
+                $this->query .= 'NOT NULL ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // set as null
+        public function Null() : self {
+            try {
+                $this->query .= 'NULL ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // set as unique
+        public function Unique() : self {
+            try {
+                $this->query .= 'UNIQUE ';
+                return $this;   
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // default
+        public function Default(string $default_value) : self {
+            try {
+                $this->query .= 'DEFAULT '.$default_value.' ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // comma
+        public function Comma() : self {
+            try {
+                $this->query .= ', ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // On
+        public function On() : self {
+            try {
+                $this->query .= 'ON ';
+                return $this;  
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // ON UPDATE
+        public function OnUpdate(string $on_update_val) : self {
+            try {
+                $this->query .= 'ON UPDATE '.$on_update_val.' ';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // set index
+        public function Index(string $index_name, string $column_name) : self {
+            try {
+                $this->query .= 'INDEX '.$index_name.'('.$column_name.')';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        // end create query
+        public function EndCreateQuery() : self{
+            try {
+                $this->query .= ');';
+                return $this;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+        
+        // enum inside value
+        public function  EnumValues(array $values) : self {
+            try {
+                $count = 1;
+                $array_count = count($values);
+
+                foreach($values as $val){
+                    if($count == $array_count){
+                        $this->query .= $val.') ';
+                    } else{
+                        $this->query .= $val.', ';
+                    }
+                    $count++;
+                }
+
                 return $this;
             } catch (\Throwable $th) {
                 throw $th;

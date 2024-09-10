@@ -1,3 +1,6 @@
+<?php
+    require __DIR__.'/../../../middleware/metainance.php';
+?>
 <section class="container d-grid vh-100" style="place-items: center;">
     <!-- form -->
     <form class="w-100 p-5 border rounded shadow" style="max-width: 600px;">
@@ -36,6 +39,8 @@
                     pass.type = 'password';
                 }
             };
+
+            // sign in btn click
         });
     </script>
 </section>

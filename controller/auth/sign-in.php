@@ -10,7 +10,7 @@
             $statusCodehandler = new StatusCodeHandler();
             $statusCodehandler->HTTP_404();
         }        
-        
+        echo 1;
     } catch (\Throwable $th) {
         header('Content-Type: application/json');
         echo json_encode(['err' => $th->getMessage()]);
