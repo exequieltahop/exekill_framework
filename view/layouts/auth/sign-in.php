@@ -10,6 +10,7 @@
         <!-- password -->
         <input type="password" id="password" class="form-control mb-3" placeholder="Password" autocomplete="current-password" required>
 
+        <!-- shot hide password -->
         <div class="d-flex align-items-center justify-content-between mb-3">
             <div class="d-flex align-items-center gap-2">
                 <input type="checkbox" id="ShowPassword">
@@ -18,11 +19,23 @@
             <a href="./?rl=sign-up" style="font-size: 0.9rem;">Sign up</a>
         </div>
 
+        <!-- btn -->
         <button class="btn btn-primary w-100" type="submit">Sign In</button>
     </form>
-
+    
     <!-- script -->
-    <?php 
-        require __DIR__.'/../service-provider/script/ShowPassword.php';
-    ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            // show password
+            document.getElementById('ShowPassword').onchange = function(e){
+                const pass = document.getElementById('password');
+
+                if(e.target.checked){
+                    pass.type = 'text';
+                }else{
+                    pass.type = 'password';
+                }
+            };
+        });
+    </script>
 </section>
