@@ -46,4 +46,33 @@
             throw $th;
         }
     }
+    
+    // flash session
+    function SessionFlash($name, $message = '') {
+        try {
+            if (!empty($message)) {
+                // Set flash message
+                $_SESSION[$name] = $message;
+            } else {
+                // Get and remove flash message
+                if (isset($_SESSION[$name])) {
+                    $msg = $_SESSION[$name];
+                    unset($_SESSION[$name]);
+                    return $msg;
+                }
+            }
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    // destroy all session
+    function SessionDestruct() : void {
+        try {
+            session_unset();
+            session_destroy();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
 ?>

@@ -4,9 +4,6 @@
             case 'sign-in':
                 PutSession('Title','Sign in');
                 break;
-            case 'sign-up':
-                PutSession('Title','Sign Up');
-                break;
             case 'unauthorized':
                 PutSession('Title','Unauthorized Access');
                 break;  

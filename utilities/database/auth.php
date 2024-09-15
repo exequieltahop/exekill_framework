@@ -10,7 +10,7 @@
     use Utilities\Tools\Crypt;
 
     class Auth{
-        public function Attempt(array $array, string $table = 'users') :bool {
+        public function Attempt(array $array, string $table = 'users') : bool {
             try {
                 /**
                  * open database connection set up queyr and execute it
@@ -20,8 +20,8 @@
                 $columns = array_keys($array);
                 $result = $qb->Select('*')
                              ->From($table)
-                             ->Where($columns[0],'=',$array['email'], True)
-                             ->Get();
+                             ->Where($columns[0],'=',$array[$columns[0]], True)
+                             ->GetRow();
                 /**
                  * if there's no result throw Exception
                  */
@@ -32,7 +32,8 @@
                 /**
                  * verify password, if wrong throw an exception
                  */
-                if(!password_verify(Crypt::BCrypt($array[$columns[1]]), $result['password'])){
+
+                if(!password_verify($array[$columns[1]], $result['password'])){
                     throw new Exception('Wrong Password!');
                 }
 
@@ -40,10 +41,19 @@
                  * Manage sesion variables
                  */
                 PutSesssionArray([
-                    $columns[0] => $array[$columns[0]],
-                    $columns[1] => $array[$columns[1]]
+                    'HasLog' => 1,
+                    'uid' => $array[$columns[0]],
                 ]);
 
+                return true;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        public function Logout() : bool {
+            try {
+                SessionDestruct();
                 return true;
             } catch (\Throwable $th) {
                 throw $th;

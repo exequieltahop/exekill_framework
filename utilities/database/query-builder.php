@@ -101,12 +101,26 @@
         }
 
         // get
-        public function Get() : array {
+        public function GetAll() : array {
             try {
                 $stmt = $this->conn->prepare($this->query);
                 $this->BindParam($stmt);
                 $stmt->execute();
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+                $this->Reset();
+                return $result;
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+        }
+
+        // get rows
+        public function GetRow() : array {
+            try {
+                $stmt = $this->conn->prepare($this->query);
+                $this->BindParam($stmt);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC); 
                 $this->Reset();
                 return $result;
             } catch (\Throwable $th) {

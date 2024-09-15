@@ -24,6 +24,10 @@
     <script src="./public/alertifyjs/alertify.min.js"></script>
     <link rel="stylesheet" href="./public/alertifyjs/css/alertify.min.css">
     <link rel="stylesheet" href="./public/alertifyjs/css/themes/default.min.css">
+    <!-- favicon -->
+    <link rel="shortcut icon" href="./public/favicon_io/favicon.ico" type="image/x-icon">
+    <!-- script http requests -->
+    <script src="./public/js/HTTP_REQUEST.js"></script>
 </head>
 <body class="bg-light">
     <!-- include route -->

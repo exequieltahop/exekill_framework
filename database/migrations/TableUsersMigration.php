@@ -76,7 +76,7 @@
                                 ->Index('idx_name', 'name')
                                     ->Comma()
                                 ->Index('idx_email', 'email')
-                                    ->EndCreateQuery()
+                                ->EndCreateQuery()
                                 ->Execute(True);
                 $qb->Disconnect();
                 return true;
